@@ -8,8 +8,6 @@ import {
   Image,
   View,
   Switch,
-  ScrollView,
-  RefreshControl,
 } from "react-native";
 
 const DATA = [
@@ -33,22 +31,11 @@ const Item = ({ item, onPress, backgroundColor, textColor }) => (
   </TouchableOpacity>
 );
 
-const wait = (timeout) => {
-  return new Promise((resolve) => setTimeout(resolve, timeout));
-};
-
 const App = () => {
   const [selectedId, setSelectedId] = useState(null);
 
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-
-  const [refreshing, setRefreshing] = React.useState(false);
-
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
-  }, []);
 
   const renderItem = ({ item }) => {
     const backgroundColor = item.id === selectedId ? "#68B984" : "#CFFDE1";
@@ -94,19 +81,12 @@ const App = () => {
           />
         </View>
       </View>
-      <ScrollView
-        contentContainerStyle={styles.scrollView}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      >
-        <FlatList
-          data={DATA}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          extraData={selectedId}
-        />
-      </ScrollView>
+      <FlatList
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        extraData={selectedId}
+      />
     </SafeAreaView>
   );
 };
