@@ -58,9 +58,7 @@ const App = () => {
             uri: "https://reactnative.dev/img/tiny_logo.png",
           }}
         />
-        <Text style={styles.navText} textColor={"white"}>
-          React Native
-        </Text>
+        <Text style={styles.navText}>React Native</Text>
       </View>
       <FlatList
         data={DATA}
@@ -86,20 +84,19 @@ const styles = StyleSheet.create({
     fontSize: 22,
   },
   tinyLogo: {
-    width: 45,
-    height: 45,
+    width: 40,
+    height: 40,
     marginRight: 20,
   },
   nav: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#3D5656",
-    padding: 20,
+    padding: 25,
     marginBottom: 10,
-    // justifyContent: "",
   },
   navText: {
-    textColor: "white",
+    color: "white",
     fontSize: 20,
   },
 });
