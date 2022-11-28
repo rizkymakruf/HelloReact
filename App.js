@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import {
   FlatList,
   SafeAreaView,
-  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
+  Image,
+  View,
 } from "react-native";
 
 const DATA = [
@@ -33,21 +34,34 @@ const App = () => {
   const [selectedId, setSelectedId] = useState(null);
 
   const renderItem = ({ item }) => {
-    const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
+    const backgroundColor = item.id === selectedId ? "#68B984" : "#CFFDE1";
     const color = item.id === selectedId ? "white" : "black";
 
     return (
-      <Item
-        item={item}
-        onPress={() => setSelectedId(item.id)}
-        backgroundColor={{ backgroundColor }}
-        textColor={{ color }}
-      />
+      <>
+        <Item
+          item={item}
+          onPress={() => setSelectedId(item.id)}
+          backgroundColor={{ backgroundColor }}
+          textColor={{ color }}
+        />
+      </>
     );
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.nav}>
+        <Image
+          style={styles.tinyLogo}
+          source={{
+            uri: "https://reactnative.dev/img/tiny_logo.png",
+          }}
+        />
+        <Text style={styles.navText} textColor={"white"}>
+          React Native
+        </Text>
+      </View>
       <FlatList
         data={DATA}
         renderItem={renderItem}
@@ -61,15 +75,32 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
   },
   item: {
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
+    borderRadius: 50,
   },
   title: {
-    fontSize: 32,
+    fontSize: 22,
+  },
+  tinyLogo: {
+    width: 45,
+    height: 45,
+    marginRight: 20,
+  },
+  nav: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#3D5656",
+    padding: 20,
+    marginBottom: 10,
+    // justifyContent: "",
+  },
+  navText: {
+    textColor: "white",
+    fontSize: 20,
   },
 });
 
