@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   View,
+  Switch,
 } from "react-native";
 
 const DATA = [
@@ -33,6 +34,9 @@ const Item = ({ item, onPress, backgroundColor, textColor }) => (
 const App = () => {
   const [selectedId, setSelectedId] = useState(null);
 
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
   const renderItem = ({ item }) => {
     const backgroundColor = item.id === selectedId ? "#68B984" : "#CFFDE1";
     const color = item.id === selectedId ? "white" : "black";
@@ -50,15 +54,32 @@ const App = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.nav}>
-        <Image
-          style={styles.tinyLogo}
-          source={{
-            uri: "https://reactnative.dev/img/tiny_logo.png",
-          }}
-        />
-        <Text style={styles.navText}>React Native</Text>
+    <SafeAreaView
+      style={styles.container}
+      backgroundColor={isEnabled ? "#434242" : "white"}
+    >
+      <View
+        style={styles.nav}
+        backgroundColor={isEnabled ? "black" : "#3D5656"}
+      >
+        <View style={styles.navLT}>
+          <Image
+            style={styles.tinyLogo}
+            source={{
+              uri: "https://reactnative.dev/img/tiny_logo.png",
+            }}
+          />
+          <Text style={styles.navText}>React Native</Text>
+        </View>
+        <View>
+          <Switch
+            trackColor={{ false: "#767577", true: "#CFFDE1" }}
+            thumbColor={isEnabled ? "#68B984" : "#f4f3f4"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+          />
+        </View>
       </View>
       <FlatList
         data={DATA}
@@ -90,10 +111,15 @@ const styles = StyleSheet.create({
   },
   nav: {
     flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#3D5656",
     padding: 25,
     marginBottom: 10,
+  },
+  navLT: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   navText: {
     color: "white",
