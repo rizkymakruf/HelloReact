@@ -11,7 +11,21 @@ import {
   Button,
   Alert,
 } from "react-native";
-import axios from "axios";
+
+const DATA = [
+  {
+    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+    title: "First Item",
+  },
+  {
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+    title: "Second Item",
+  },
+  {
+    id: "58694a0f-3da1-471f-bd96-145571e29d72",
+    title: "Third Item",
+  },
+];
 
 const Item = ({ item, onPress, backgroundColor, textColor }) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
@@ -51,26 +65,6 @@ const App = () => {
     );
   };
 
-  const [data, setData] = useState([]);
-  // fetch data API with axios
-  const getUsers = async () => {
-    try {
-      const result = await axios(`https://jsonplaceholder.typicode.com/users"`);
-      setData(result.data);
-      return result;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // call function
-  useEffect(() => {
-    getUsers();
-  }, []);
-  // log data
-  console.log("hihi", data);
-  // initial
-  const DATA = data;
-
   return (
     <SafeAreaView
       style={styles.container}
@@ -100,9 +94,9 @@ const App = () => {
         </View>
       </View>
       <FlatList
-        data={DATA.name}
+        data={DATA}
         renderItem={renderItem}
-        keyExtractor={(data) => data.id}
+        keyExtractor={(item) => item.id}
         extraData={selectedId}
       />
       <View style={styles.containerButton}>
