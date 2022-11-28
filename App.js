@@ -73,8 +73,8 @@ const App = () => {
         </View>
         <View>
           <Switch
-            trackColor={{ false: "#767577", true: "#CFFDE1" }}
-            thumbColor={isEnabled ? "#68B984" : "#f4f3f4"}
+            trackColor={{ false: "black", true: "#F49D1A" }}
+            thumbColor={isEnabled ? "#FFE15D" : "#f4f3f4"}
             ios_backgroundColor="#3e3e3e"
             onValueChange={toggleSwitch}
             value={isEnabled}
