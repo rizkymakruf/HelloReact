@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FlatList,
   SafeAreaView,
@@ -8,6 +8,8 @@ import {
   Image,
   View,
   Switch,
+  Button,
+  Alert,
 } from "react-native";
 
 const DATA = [
@@ -36,6 +38,16 @@ const App = () => {
 
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
+  const createTwoButtonAlert = () =>
+    Alert.alert("Continue", "Want to continue this action ?", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      { text: "OK", onPress: () => console.log("OK Pressed") },
+    ]);
 
   const renderItem = ({ item }) => {
     const backgroundColor = item.id === selectedId ? "#68B984" : "#CFFDE1";
@@ -87,6 +99,13 @@ const App = () => {
         keyExtractor={(item) => item.id}
         extraData={selectedId}
       />
+      <View style={styles.containerButton}>
+        <Button
+          title={"Continue"}
+          style={styles.btnAlret}
+          onPress={createTwoButtonAlert}
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -124,6 +143,15 @@ const styles = StyleSheet.create({
   navText: {
     color: "white",
     fontSize: 20,
+  },
+  containerButton: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  btnAlret: {
+    padding: 20,
   },
 });
 
